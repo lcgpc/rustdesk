@@ -137,72 +137,75 @@ class _PeerTabPageState extends State<PeerTabPage>
   Widget _createSwitchBar(BuildContext context) {
     final model = Provider.of<PeerTabModel>(context);
     var counter = -1;
-    return ReorderableListView(
-        buildDefaultDragHandles: false,
-        onReorder: model.reorder,
-        scrollDirection: Axis.horizontal,
-        physics: NeverScrollableScrollPhysics(),
-        children: model.visibleEnabledOrderedIndexs.map((t) {
-          final selected = model.currentTab == t;
-          final color = selected
-              ? MyTheme.tabbar(context).selectedTextColor
-              : MyTheme.tabbar(context).unSelectedTextColor
-            ?..withOpacity(0.5);
-          final hover = false.obs;
-          final deco = BoxDecoration(
-              color: Theme.of(context).colorScheme.background,
-              borderRadius: BorderRadius.circular(6));
-          final decoBorder = BoxDecoration(
-              border: Border(
-            bottom: BorderSide(width: 2, color: color!),
-          ));
-          counter += 1;
-          return ReorderableDragStartListener(
-              key: ValueKey(t),
-              index: counter,
-              child: Obx(() => Tooltip(
-                    preferBelow: false,
-                    message: model.tabTooltip(t),
-                    onTriggered: isMobile ? mobileShowTabVisibilityMenu : null,
-                    child: InkWell(
-                      child: Container(
-                        decoration: (hover.value
-                            ? (selected ? decoBorder : deco)
-                            : (selected ? decoBorder : null)),
-                        child: Icon(model.tabIcon(t), color: color)
-                            .paddingSymmetric(horizontal: 4),
-                      ).paddingSymmetric(horizontal: 4),
-                      onTap: isOptionFixed(kOptionPeerTabIndex)
-                          ? null
-                          : () async {
-                              await handleTabSelection(t);
-                              await bind.setLocalFlutterOption(
-                                  k: kOptionPeerTabIndex, v: t.toString());
-                            },
-                      onHover: (value) => hover.value = value,
-                    ),
-                  )));
-        }).toList());
+    // 隱藏所有標籤頁
+    return Container(); // 返回空容器，隱藏整個標籤欄
+    
+    // 原始代碼被註釋
+    // return ReorderableListView(
+    //     buildDefaultDragHandles: false,
+    //     onReorder: model.reorder,
+    //     scrollDirection: Axis.horizontal,
+    //     physics: NeverScrollableScrollPhysics(),
+    //     children: model.visibleEnabledOrderedIndexs.map((t) {
+    //       final selected = model.currentTab == t;
+    //       final color = selected
+    //           ? MyTheme.tabbar(context).selectedTextColor
+    //           : MyTheme.tabbar(context).unSelectedTextColor
+    //         ?..withOpacity(0.5);
+    //       final hover = false.obs;
+    //       final deco = BoxDecoration(
+    //           color: Theme.of(context).colorScheme.background,
+    //           borderRadius: BorderRadius.circular(6));
+    //       final decoBorder = BoxDecoration(
+    //           border: Border(
+    //         bottom: BorderSide(width: 2, color: color!),
+    //       ));
+    //       counter += 1;
+    //       return ReorderableDragStartListener(
+    //           key: ValueKey(t),
+    //           index: counter,
+    //           child: Obx(() => Tooltip(
+    //                 preferBelow: false,
+    //                 message: model.tabTooltip(t),
+    //                 onTriggered: isMobile ? mobileShowTabVisibilityMenu : null,
+    //                 child: InkWell(
+    //                   child: Container(
+    //                     decoration: (hover.value
+    //                         ? (selected ? decoBorder : deco)
+    //                         : (selected ? decoBorder : null)),
+    //                     child: Icon(model.tabIcon(t), color: color)
+    //                         .paddingSymmetric(horizontal: 4),
+    //                   ).paddingSymmetric(horizontal: 4),
+    //                   onTap: isOptionFixed(kOptionPeerTabIndex)
+    //                       ? null
+    //                       : () async {
+    //                           await handleTabSelection(t);
+    //                           await bind.setLocalFlutterOption(
+    //                               k: kOptionPeerTabIndex, v: t.toString());
+    //                         },
+    //                   onHover: (value) => hover.value = value,
+    //                 ),
+    //               )));
+    //     }).toList());
   }
 
   Widget _createPeersView() {
     final model = Provider.of<PeerTabModel>(context);
     Widget child;
-    if (model.visibleEnabledOrderedIndexs.isEmpty) {
-      child = visibleContextMenuListener(Row(
-        children: [Expanded(child: InkWell())],
-      ));
-    } else {
-      if (model.visibleEnabledOrderedIndexs.contains(model.currentTab)) {
-        child = entries[model.currentTab].widget;
-      } else {
-        debugPrint("should not happen! currentTab not in visibleIndexs");
-        Future.delayed(Duration.zero, () {
-          model.setCurrentTab(model.visibleEnabledOrderedIndexs[0]);
-        });
-        child = entries[0].widget;
-      }
-    }
+    
+    // 返回空的容器，隱藏所有標籤頁內容
+    child = Container(
+      child: Center(
+        child: Text(
+          '功能已隱藏',
+          style: TextStyle(
+            color: Theme.of(context).textTheme.bodyMedium?.color,
+            fontSize: 16,
+          ),
+        ),
+      ),
+    );
+    
     return Expanded(
         child: child.marginSymmetric(
             vertical: (isDesktop || isWebDesktop) ? 12.0 : 6.0));
@@ -235,7 +238,8 @@ class _PeerTabPageState extends State<PeerTabPage>
   }
 
   Widget _createPeerViewTypeSwitch(BuildContext context) {
-    return PeerViewDropdown();
+    // 返回空容器，完全隱藏此功能
+    return Container();
   }
 
   Widget _createMultiSelection() {
@@ -552,7 +556,7 @@ class _PeerTabPageState extends State<PeerTabPage>
   List<Widget> _landscapeRightActions(BuildContext context) {
     final model = Provider.of<PeerTabModel>(context);
     return [
-      const PeerSearchBar().marginOnly(right: 13),
+      // const PeerSearchBar().marginOnly(right: 13),
       _createRefresh(
           index: PeerTabIndex.ab, loading: gFFI.abModel.currentAbLoading),
       _createRefresh(
@@ -561,7 +565,7 @@ class _PeerTabPageState extends State<PeerTabPage>
         offstage: model.currentTabCachedPeers.isEmpty,
         child: _createMultiSelection(),
       ),
-      _createPeerViewTypeSwitch(context),
+      // _createPeerViewTypeSwitch(context),
       Offstage(
         offstage: model.currentTab == PeerTabIndex.recent.index,
         child: PeerSortDropdown(),
@@ -617,9 +621,9 @@ class _PeerTabPageState extends State<PeerTabPage>
       );
     }
 
-    // Always show search, refresh
+    // Always show refresh
     List<Widget> actions = [
-      const PeerSearchBar(),
+      // const PeerSearchBar(),
       if (model.currentTab == PeerTabIndex.ab.index)
         _createRefresh(
             index: PeerTabIndex.ab, loading: gFFI.abModel.currentAbLoading),
