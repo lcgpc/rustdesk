@@ -112,23 +112,23 @@ class _OnlineStatusWidgetState extends State<OnlineStatusWidget> {
     basicWidget() => Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              height: 8,
-              width: 8,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: _svcStopped.value ||
-                        stateGlobal.svcStatus.value == SvcStatus.connecting
-                    ? kColorWarn
-                    : (stateGlobal.svcStatus.value == SvcStatus.ready
-                        ? Color.fromARGB(255, 50, 190, 166)
-                        : Color.fromARGB(255, 224, 79, 95)),
-              ),
-            ).marginSymmetric(horizontal: em),
-            Container(
-              width: isIncomingOnly ? 226 : null,
-              child: //_buildConnStatusMsg(),
-            ),
+            // Container(
+            //   height: 8,
+            //   width: 8,
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(4),
+            //     color: _svcStopped.value ||
+            //             stateGlobal.svcStatus.value == SvcStatus.connecting
+            //         ? kColorWarn
+            //         : (stateGlobal.svcStatus.value == SvcStatus.ready
+            //             ? Color.fromARGB(255, 50, 190, 166)
+            //             : Color.fromARGB(255, 224, 79, 95)),
+            //   ),
+            // ).marginSymmetric(horizontal: em),
+            // Container(
+            //   width: isIncomingOnly ? 226 : null,
+            //   child: _buildConnStatusMsg(),
+            // ),
             // stop
             if (!isIncomingOnly) startServiceWidget(),
             // ready && public
