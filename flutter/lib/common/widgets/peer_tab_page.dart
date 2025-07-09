@@ -154,7 +154,7 @@ class _PeerTabPageState extends State<PeerTabPage>
           children: [
             // 第一排文字 - 大字體
             Text(
-              '此版本僅提供被控端功能',
+              '超級巨星專用版本目前僅提供被控端功能',
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyMedium?.color,
                 fontSize: 32,
@@ -162,13 +162,13 @@ class _PeerTabPageState extends State<PeerTabPage>
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 16), // 間距
+            SizedBox(height: 10), // 間距
             // 第二排文字 - 小字體
             Text(
               '請提供 ID 及 密碼 來進行遠端協助',
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 16,
+                fontSize: 22,
               ),
               textAlign: TextAlign.center,
             ),
