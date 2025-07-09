@@ -154,7 +154,7 @@ class _PeerTabPageState extends State<PeerTabPage>
           children: [
             // 第一排文字 - 大字體
             Text(
-              '超級巨星專用版本目前僅提供被控端功能',
+              '超級巨星專用版 僅提供被控端功能',
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyMedium?.color,
                 fontSize: 32,
@@ -165,7 +165,7 @@ class _PeerTabPageState extends State<PeerTabPage>
             SizedBox(height: 10), // 間距
             // 第二排文字 - 小字體
             Text(
-              '請提供 ID 及 密碼 來進行遠端協助',
+              '請提供左側 ID 及 密碼 來進行遠端協助',
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyMedium?.color,
                 fontSize: 22,
@@ -637,17 +637,42 @@ class _PeerTabPageState extends State<PeerTabPage>
     final _svcStopped = Get.find<RxBool>(tag: 'stop-service');
     final em = 14.0;
     
-    return Text(
-      _svcStopped.value
-          ? translate("Service is not running")
-          : stateGlobal.svcStatus.value == SvcStatus.connecting
-              ? translate("connecting_status")
-              : stateGlobal.svcStatus.value == SvcStatus.notReady
-                  ? translate("not_ready_status")
-                  : translate('Ready'),
-      style: TextStyle(fontSize: em),
-      textAlign: TextAlign.center,
-    );
+    return Obx(() => Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // 狀態燈
+        Container(
+          height: 8,
+          width: 8,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(4),
+            color: _svcStopped.value ||
+                    stateGlobal.svcStatus.value == SvcStatus.connecting
+                ? kColorWarn
+                : (stateGlobal.svcStatus.value == SvcStatus.ready
+                    ? Color.fromARGB(255, 50, 190, 166)
+                    : Color.fromARGB(255, 224, 79, 95)),
+          ),
+        ),
+        SizedBox(width: 8), // 狀態燈和文字之間的間距
+        // 狀態文字
+        Text(
+          _svcStopped.value
+              ? translate("Service is not running")
+              : stateGlobal.svcStatus.value == SvcStatus.connecting
+                  ? translate("connecting_status")
+                  : stateGlobal.svcStatus.value == SvcStatus.notReady
+                      ? translate("not_ready_status")
+                      : translate('Ready'),
+          style: TextStyle(
+            fontSize: em,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    ));
   }
 }
 

@@ -2,7 +2,7 @@ lazy_static::lazy_static! {
 pub static ref T: std::collections::HashMap<&'static str, &'static str> =
     [
         ("Status", "狀態"),
-        ("Your Desktop", "您的桌面"),
+        ("Your Desktop", "超級巨星KTV專用"),
         ("desk_tip", "您可以透過此 ID 及密碼存取您的桌面"),
         ("Password", "密碼"),
         ("Ready", "就緒"),
@@ -145,7 +145,7 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("Failed to make direct connection to remote desktop", "無法直接連線到遠端桌面"),
         ("Set Password", "設定密碼"),
         ("OS Password", "作業系統密碼"),
-        ("install_tip", "目前是免安裝模式。若要避開 UAC，請點選下方安裝按鈕將 RustDesk 安裝到系統中。"),
+        ("install_tip", "超級巨星Rustdesk免安裝被控模式。若要避開 UAC且常駐，請點選下方安裝按鈕將程式安裝到系統中。"),
         ("Click to upgrade", "點選以升級"),
         ("Click to download", "點選以下載"),
         ("Click to update", "點選以更新"),

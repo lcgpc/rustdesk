@@ -41,7 +41,7 @@ class _OnlineStatusWidgetState extends State<OnlineStatusWidget> {
   double? get height => bind.isIncomingOnly() ? null : em * 3;
 
   void onUsePublicServerGuide() {
-    const url = "";
+    const url = "https://www.superstarktv.com.tw/";
     canLaunchUrlString(url).then((can) {
       if (can) {
         launchUrlString(url);
