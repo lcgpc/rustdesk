@@ -152,6 +152,13 @@ class _PeerTabPageState extends State<PeerTabPage>
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Logo 圖片
+            Image.asset(
+              'assets/ktvlogo.png',
+              width: 230,  // 可調整大小
+              height: 130, // 可調整大小
+            ),
+            SizedBox(height: 24), // 間距
             // 第一排文字 - 大字體
             Text(
               '超級巨星專用版 僅提供被控端功能',
@@ -635,7 +642,7 @@ class _PeerTabPageState extends State<PeerTabPage>
 
   Widget _buildConnStatusMsg() {
     final _svcStopped = Get.find<RxBool>(tag: 'stop-service');
-    final em = 28.0;
+    final em = 20.0;
     
     return Obx(() => Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -643,10 +650,10 @@ class _PeerTabPageState extends State<PeerTabPage>
       children: [
         // 狀態燈
         Container(
-          height: 16,
-          width: 16,
+          height: 12,
+          width: 12,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(6),
             color: _svcStopped.value ||
                     stateGlobal.svcStatus.value == SvcStatus.connecting
                 ? kColorWarn
