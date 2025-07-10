@@ -635,7 +635,7 @@ class _PeerTabPageState extends State<PeerTabPage>
 
   Widget _buildConnStatusMsg() {
     final _svcStopped = Get.find<RxBool>(tag: 'stop-service');
-    final em = 14.0;
+    final em = 28.0;
     
     return Obx(() => Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -643,10 +643,10 @@ class _PeerTabPageState extends State<PeerTabPage>
       children: [
         // 狀態燈
         Container(
-          height: 8,
-          width: 8,
+          height: 16,
+          width: 16,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(8),
             color: _svcStopped.value ||
                     stateGlobal.svcStatus.value == SvcStatus.connecting
                 ? kColorWarn
@@ -655,7 +655,7 @@ class _PeerTabPageState extends State<PeerTabPage>
                     : Color.fromARGB(255, 224, 79, 95)),
           ),
         ),
-        SizedBox(width: 8), // 狀態燈和文字之間的間距
+        SizedBox(width: 12), // 狀態燈和文字之間的間距
         // 狀態文字
         Text(
           _svcStopped.value
