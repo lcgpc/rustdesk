@@ -172,14 +172,14 @@ class _PeerTabPageState extends State<PeerTabPage>
             SizedBox(height: 10), // 間距
             // 第二排文字 - 小字體
             Text(
-              '請提供左側 ID 及 密碼 來進行遠端協助',
+              '請查看左側 ID 及 密碼 來進行遠端協助',
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 22,
+                fontSize: 24,
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 24), // 間距
+            SizedBox(height: 30), // 間距
             // 連接狀態信息
             _buildConnStatusMsg(),
           ],
@@ -642,7 +642,7 @@ class _PeerTabPageState extends State<PeerTabPage>
 
   Widget _buildConnStatusMsg() {
     final _svcStopped = Get.find<RxBool>(tag: 'stop-service');
-    final em = 20.0;
+    final em = 18.0;
     
     return Obx(() => Row(
       mainAxisAlignment: MainAxisAlignment.center,
