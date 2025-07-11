@@ -141,51 +141,130 @@ class _PeerTabPageState extends State<PeerTabPage>
     return Container(); // 返回空容器，隱藏整個標籤欄
   }
 
-  Widget _createPeersView() {
-    final model = Provider.of<PeerTabModel>(context);
-    Widget child;
-    
-    // 返回自定義的容器，顯示兩排文字和連接狀態
-    child = Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+Widget _createPeersView() {
+  return Column(
+    children: [
+      // ID 和密碼水平排列區域
+      Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Row(
           children: [
-            // Logo 圖片
-            Image.asset(
-              'assets/ktvlogo.png',
-              width: 230,  // 可調整大小
-              height: 130, // 可調整大小
-            ),
-            SizedBox(height: 24), // 間距
-            // 第一排文字 - 大字體
-            Text(
-              '超級巨星專用版 僅提供被控端功能',
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
+            // ID 區域
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      translate("ID"),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6),
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    GestureDetector(
+                      onDoubleTap: () {
+                        Clipboard.setData(ClipboardData(text: gFFI.serverModel.serverId.text));
+                        showToast(translate("Copied"));
+                      },
+                      child: Text(
+                        gFFI.serverModel.serverId.text,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              textAlign: TextAlign.center,
             ),
-            SizedBox(height: 10), // 間距
-            // 第二排文字 - 小字體
-            Text(
-              '請查看左側 ID 及 密碼 來進行遠端協助',
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 24,
+            SizedBox(width: 12),
+            // 密碼區域
+            Expanded(
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      translate("One-time Password"),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6),
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onDoubleTap: () {
+                              Clipboard.setData(ClipboardData(text: gFFI.serverModel.serverPasswd.text));
+                              showToast(translate("Copied"));
+                            },
+                            child: Text(
+                              gFFI.serverModel.serverPasswd.text,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.refresh, size: 20),
+                          onPressed: () => bind.mainUpdateTemporaryPassword(),
+                          tooltip: translate('Refresh Password'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              textAlign: TextAlign.center,
             ),
-            SizedBox(height: 30), // 間距
-            // 連接狀態信息
-            _buildConnStatusMsg(),
           ],
         ),
       ),
-    );
+      // Logo 圖片
+      Image.asset(
+        'assets/ktvlogo.png',
+        width: 230,
+        height: 130,
+      ),
+      // ... existing code ...
+      SizedBox(height: 12),
+      Text(
+        "超級巨星專用版 僅提供被控端功能",
+        style: TextStyle(
+          fontSize: 32,
+          color: Theme.of(context).textTheme.bodyMedium?.color,
+        ),
+      ),
+      SizedBox(height: 10),
+      Text(
+        "請查看上方 ID 及 密碼 來進行遠端連線",
+        style: TextStyle(
+          fontSize: 22,
+          color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.7),
+        ),
+      ),
+      SizedBox(height: 20),
+      _buildConnStatusMsg(),
+      // ... existing code ...
+    ],
+  );
+}
     
     return Expanded(
         child: child.marginSymmetric(

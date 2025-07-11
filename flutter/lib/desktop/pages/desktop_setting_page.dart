@@ -452,24 +452,24 @@ class _GeneralState extends State<_General> {
     ]);
   }
 
-  Widget service() {
-    if (bind.isOutgoingOnly()) {
-      return const Offstage();
-    }
-
-    return _Card(title: 'Service', children: [
-      Obx(() => _Button(serviceStop.value ? 'Start' : 'Stop', () {
-            () async {
-              serviceBtnEnabled.value = false;
-              await start_service(serviceStop.value);
-              // enable the button after 1 second
-              Future.delayed(const Duration(seconds: 1), () {
-                serviceBtnEnabled.value = true;
-              });
-            }();
-          }, enabled: serviceBtnEnabled.value))
-    ]);
+Widget service() {
+  if (bind.isOutgoingOnly()) {
+    return const Offstage();
   }
+
+  return _Card(title: 'Service', children: [
+    Obx(() => _Button('安裝', () {  // 將按鈕文字改為"安裝"
+          () async {
+            serviceBtnEnabled.value = false;
+            await start_service(serviceStop.value);
+            // enable the button after 1 second
+            Future.delayed(const Duration(seconds: 1), () {
+              serviceBtnEnabled.value = true;
+            });
+          }();
+        }, enabled: serviceBtnEnabled.value))
+  ]);
+}
 
   Widget other() {
     final showAutoUpdate =
