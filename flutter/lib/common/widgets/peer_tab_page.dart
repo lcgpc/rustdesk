@@ -266,11 +266,6 @@ Widget _createPeersView() {
   );
 }
     
-    return Expanded(
-        child: child.marginSymmetric(
-            vertical: (isDesktop || isWebDesktop) ? 12.0 : 6.0));
-  }
-
   Widget _createRefresh(
       {required PeerTabIndex index, required RxBool loading}) {
     final model = Provider.of<PeerTabModel>(context);
