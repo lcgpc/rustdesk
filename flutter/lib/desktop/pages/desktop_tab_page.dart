@@ -19,22 +19,22 @@ class DesktopTabPage extends StatefulWidget {
   State<DesktopTabPage> createState() => _DesktopTabPageState();
 
   static void onAddSetting(
-      {SettingsTabKey initialPage = SettingsTabKey.general}) {
-    try {
-      DesktopTabController tabController = Get.find<DesktopTabController>();
-      tabController.add(TabInfo(
-          key: kTabLabelSettingPage,
-          label: kTabLabelSettingPage,
-          selectedIcon: Icons.build_sharp,
-          unselectedIcon: Icons.build_outlined,
-          page: DesktopSettingPage(
-            key: const ValueKey(kTabLabelSettingPage),
-            initialTabkey: initialPage,
-          )));
-    } catch (e) {
-      debugPrintStack(label: '$e');
-    }
+    {SettingsTabKey initialPage = SettingsTabKey.general}) {
+  try {
+    DesktopTabController tabController = Get.find<DesktopTabController>();
+    tabController.add(TabInfo(
+        key: kTabLabelSettingPage,
+        label: kTabLabelSettingPage,
+        selectedIcon: Icons.build_sharp,
+        unselectedIcon: Icons.build_outlined,
+        page: DesktopSettingPage( // 這裡會顯示完整的設定頁面，包含左側欄位
+          key: const ValueKey(kTabLabelSettingPage),
+          initialTabkey: initialPage,
+        )));
+  } catch (e) {
+    debugPrintStack(label: '$e');
   }
+}
 }
 
 class _DesktopTabPageState extends State<DesktopTabPage> {
@@ -43,7 +43,7 @@ class _DesktopTabPageState extends State<DesktopTabPage> {
   _DesktopTabPageState() {
     RemoteCountState.init();
     Get.put<DesktopTabController>(tabController);
-    tabController.add(TabInfo(
+      tabController.add(TabInfo(
         key: kTabLabelHomePage,
         label: kTabLabelHomePage,
         selectedIcon: Icons.home_sharp,
