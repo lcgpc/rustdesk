@@ -458,16 +458,14 @@ Widget service() {
   }
 
   return _Card(title: 'Service', children: [
-    _Button('安裝', () {
-      () async {
-        serviceBtnEnabled.value = false;
-        // 執行安裝守護程序的功能
-        bind.mainIsInstalledDaemon(prompt: true);
-        // enable the button after 1 second
-        Future.delayed(const Duration(seconds: 1), () {
-          serviceBtnEnabled.value = true;
-        });
-      }();
+    _Button('安裝', () async {
+      serviceBtnEnabled.value = false;
+      // 執行安裝守護程序的功能
+      bind.mainIsInstalledDaemon(prompt: true);
+      // enable the button after 1 second
+      Future.delayed(const Duration(seconds: 1), () {
+        serviceBtnEnabled.value = true;
+      });
     }, enabled: serviceBtnEnabled.value)
   ]);
 }
