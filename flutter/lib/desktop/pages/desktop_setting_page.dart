@@ -457,18 +457,25 @@ class _GeneralState extends State<_General> {
       return const Offstage();
     }
 
-    return _Card(title: 'Service', children: [
-      Obx(() => _Button(serviceStop.value ? 'Start' : 'Stop', () {
-            () async {
-              serviceBtnEnabled.value = false;
-              await start_service(serviceStop.value);
-              // enable the button after 1 second
-              Future.delayed(const Duration(seconds: 1), () {
-                serviceBtnEnabled.value = true;
-              });
-            }();
-          }, enabled: serviceBtnEnabled.value))
-    ]);
+    // 直接返回 buildInstallCard
+    if (!bind.mainIsInstalled()) {
+      return buildInstallCard(
+          "", bind.isOutgoingOnly() ? "" : "install_tip", "Install",
+          () async {
+        await rustDeskWinManager.closeAllSubWindows();
+        bind.mainGotoInstall();
+      });
+    } else if (bind.mainIsInstalledLowerVersion()) {
+      return buildInstallCard(
+          "Status", "Your installation is lower version.", "Click to upgrade",
+          () async {
+        await rustDeskWinManager.closeAllSubWindows();
+        bind.mainUpdateMe();
+      });
+    } else {
+      return buildInstallCard(
+          "Status", "Installation is up to date.", "", () {});
+    }
   }
 
   Widget other() {

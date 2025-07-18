@@ -172,14 +172,14 @@ class _PeerTabPageState extends State<PeerTabPage>
             SizedBox(height: 10), // 間距
             // 第二排文字 - 小字體
             Text(
-              '請查看左側 ID 及 密碼 來進行遠端協助',
+              '請提供左側 ID 及 密碼 來進行遠端連線',
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyMedium?.color,
                 fontSize: 24,
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 30), // 間距
+            SizedBox(height: 20), // 間距
             // 連接狀態信息
             _buildConnStatusMsg(),
           ],
