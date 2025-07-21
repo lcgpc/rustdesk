@@ -457,27 +457,6 @@ class _GeneralState extends State<_General> {
       return const Offstage();
     }
 
-<<<<<<< HEAD
-    // 直接返回 buildInstallCard
-    if (!bind.mainIsInstalled()) {
-      return buildInstallCard(
-          "", bind.isOutgoingOnly() ? "" : "install_tip", "Install",
-          () async {
-        await rustDeskWinManager.closeAllSubWindows();
-        bind.mainGotoInstall();
-      });
-    } else if (bind.mainIsInstalledLowerVersion()) {
-      return buildInstallCard(
-          "Status", "Your installation is lower version.", "Click to upgrade",
-          () async {
-        await rustDeskWinManager.closeAllSubWindows();
-        bind.mainUpdateMe();
-      });
-    } else {
-      return buildInstallCard(
-          "Status", "Installation is up to date.", "", () {});
-    }
-=======
     return _Card(title: 'Service', children: [
       Row(
         children: [
@@ -511,7 +490,6 @@ class _GeneralState extends State<_General> {
         ],
       ),
     ]);
->>>>>>> 584be5aad (hold id fix install txt silent connect)
   }
 
   Widget other() {
