@@ -3,7 +3,11 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
     [
         ("Status", "狀態"),
         ("Your Desktop", "超級巨星KTV專用"),
+<<<<<<< HEAD
         ("desk_tip", "使用ID及密碼連線本機"),
+=======
+        ("desk_tip", "下方ID及密碼連線桌面"),
+>>>>>>> 584be5aad (hold id fix install txt silent connect)
         ("Password", "密碼"),
         ("Ready", "已連線就緒"),
         ("Established", "已建立"),
@@ -628,7 +632,7 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("enable-bot-desc", "1. 開啟與 @BotFather 的對話。\n2. 傳送指令「/newbot」。您將會在完成此步驟後收到權杖 (Token)。\n3. 開始與您剛創立的機器人的對話。傳送一則以正斜線 (「/」) 開頭的訊息來啟用它，例如「/hello」。"),
         ("cancel-2fa-confirm-tip", "確定要取消二步驟驗證嗎？"),
         ("cancel-bot-confirm-tip", "確定要取消 Telegram 機器人嗎？"),
-        ("About RustDesk", "超級巨星 專用版 v1.4.11"),
+        ("About RustDesk", "超級巨星 專用版 v1.4.12"),
         ("Send clipboard keystrokes", "傳送剪貼簿按鍵"),
         ("network_error_tip", "請檢查網路連結，然後點選重試"),
         ("Unlock with PIN", "使用 PIN 碼解鎖設定"),

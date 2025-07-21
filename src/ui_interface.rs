@@ -96,6 +96,13 @@ pub fn goto_install() {
     std::process::exit(0);
 }
 
+添加新函數
+// 新增靜默安裝函數
+pub fn goto_silent_install() {
+    allow_err!(crate::run_me(vec!["--silent-install"]));
+    std::process::exit(0);
+}
+
 #[inline]
 pub fn install_me(_options: String, _path: String, _silent: bool, _debug: bool) {
     #[cfg(windows)]

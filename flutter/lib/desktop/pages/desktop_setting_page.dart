@@ -457,6 +457,7 @@ class _GeneralState extends State<_General> {
       return const Offstage();
     }
 
+<<<<<<< HEAD
     // 直接返回 buildInstallCard
     if (!bind.mainIsInstalled()) {
       return buildInstallCard(
@@ -476,6 +477,41 @@ class _GeneralState extends State<_General> {
       return buildInstallCard(
           "Status", "Installation is up to date.", "", () {});
     }
+=======
+    return _Card(title: 'Service', children: [
+      Row(
+        children: [
+          Expanded(
+            child: Obx(() => _Button('Install', () {
+                  () async {
+                    serviceBtnEnabled.value = false;
+                    // 直接使用 mainGotoInstall 方法
+                    //bind.mainGotoInstall();
+                    bind.mainGotoSilentInstall(); //自訂模組
+                    // enable the button after 1 second
+                    Future.delayed(const Duration(seconds: 1), () {
+                      serviceBtnEnabled.value = true;
+                    });
+                  }();
+                }, enabled: serviceBtnEnabled.value)),
+          ),
+          SizedBox(width: 10), // 按鈕之間的間距
+          Expanded(
+            child: Obx(() => _Button(serviceStop.value ? 'Start' : 'Stop', () {
+                  () async {
+                    serviceBtnEnabled.value = false;
+                    await start_service(serviceStop.value);
+                    // enable the button after 1 second
+                    Future.delayed(const Duration(seconds: 1), () {
+                      serviceBtnEnabled.value = true;
+                    });
+                  }();
+                }, enabled: serviceBtnEnabled.value)),
+          ),
+        ],
+      ),
+    ]);
+>>>>>>> 584be5aad (hold id fix install txt silent connect)
   }
 
   Widget other() {
