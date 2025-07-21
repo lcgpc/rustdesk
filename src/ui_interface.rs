@@ -96,7 +96,7 @@ pub fn goto_install() {
     std::process::exit(0);
 }
 
-添加新函數
+//添加新函數
 // 新增靜默安裝函數
 pub fn goto_silent_install() {
     allow_err!(crate::run_me(vec!["--silent-install"]));
