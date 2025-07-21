@@ -3,11 +3,7 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
     [
         ("Status", "狀態"),
         ("Your Desktop", "超級巨星KTV專用"),
-<<<<<<< HEAD
-        ("desk_tip", "使用ID及密碼連線本機"),
-=======
         ("desk_tip", "下方ID及密碼連線桌面"),
->>>>>>> 584be5aad (hold id fix install txt silent connect)
         ("Password", "密碼"),
         ("Ready", "已連線就緒"),
         ("Established", "已建立"),
