@@ -137,56 +137,72 @@ class _PeerTabPageState extends State<PeerTabPage>
   Widget _createSwitchBar(BuildContext context) {
     final model = Provider.of<PeerTabModel>(context);
     var counter = -1;
-    // 隱藏所有標籤頁
-    return Container(); // 返回空容器，隱藏整個標籤欄
+    return ReorderableListView(
+        buildDefaultDragHandles: false,
+        onReorder: model.reorder,
+        scrollDirection: Axis.horizontal,
+        physics: NeverScrollableScrollPhysics(),
+        children: model.visibleEnabledOrderedIndexs.map((t) {
+          final selected = model.currentTab == t;
+          final color = selected
+              ? MyTheme.tabbar(context).selectedTextColor
+              : MyTheme.tabbar(context).unSelectedTextColor
+            ?..withOpacity(0.5);
+          final hover = false.obs;
+          final deco = BoxDecoration(
+              color: Theme.of(context).colorScheme.background,
+              borderRadius: BorderRadius.circular(6));
+          final decoBorder = BoxDecoration(
+              border: Border(
+            bottom: BorderSide(width: 2, color: color!),
+          ));
+          counter += 1;
+          return ReorderableDragStartListener(
+              key: ValueKey(t),
+              index: counter,
+              child: Obx(() => Tooltip(
+                    preferBelow: false,
+                    message: model.tabTooltip(t),
+                    onTriggered: isMobile ? mobileShowTabVisibilityMenu : null,
+                    child: InkWell(
+                      child: Container(
+                        decoration: (hover.value
+                            ? (selected ? decoBorder : deco)
+                            : (selected ? decoBorder : null)),
+                        child: Icon(model.tabIcon(t), color: color)
+                            .paddingSymmetric(horizontal: 4),
+                      ).paddingSymmetric(horizontal: 4),
+                      onTap: isOptionFixed(kOptionPeerTabIndex)
+                          ? null
+                          : () async {
+                              await handleTabSelection(t);
+                              await bind.setLocalFlutterOption(
+                                  k: kOptionPeerTabIndex, v: t.toString());
+                            },
+                      onHover: (value) => hover.value = value,
+                    ),
+                  )));
+        }).toList());
   }
 
   Widget _createPeersView() {
     final model = Provider.of<PeerTabModel>(context);
     Widget child;
-    
-    // 返回自定義的容器，顯示兩排文字和連接狀態
-    child = Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Logo 圖片
-            Image.asset(
-              'assets/ktvlogo.png',
-              width: 230,  // 可調整大小
-              height: 130, // 可調整大小
-            ),
-            SizedBox(height: 24), // 間距
-            // 第一排文字 - 大字體
-            Text(
-              '超級巨星專用版 僅提供被控端功能',
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10), // 間距
-            // 第二排文字 - 小字體
-            Text(
-              '請提供左側 ID 及 密碼 來進行遠端連線',
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 24,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 20), // 間距
-            // 連接狀態信息
-            _buildConnStatusMsg(),
-          ],
-        ),
-      ),
-    );
-    
+    if (model.visibleEnabledOrderedIndexs.isEmpty) {
+      child = visibleContextMenuListener(Row(
+        children: [Expanded(child: InkWell())],
+      ));
+    } else {
+      if (model.visibleEnabledOrderedIndexs.contains(model.currentTab)) {
+        child = entries[model.currentTab].widget;
+      } else {
+        debugPrint("should not happen! currentTab not in visibleIndexs");
+        Future.delayed(Duration.zero, () {
+          model.setCurrentTab(model.visibleEnabledOrderedIndexs[0]);
+        });
+        child = entries[0].widget;
+      }
+    }
     return Expanded(
         child: child.marginSymmetric(
             vertical: (isDesktop || isWebDesktop) ? 12.0 : 6.0));
