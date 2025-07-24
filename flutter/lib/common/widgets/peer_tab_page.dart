@@ -553,7 +553,7 @@ class _PeerTabPageState extends State<PeerTabPage>
   List<Widget> _landscapeRightActions(BuildContext context) {
     final model = Provider.of<PeerTabModel>(context);
     return [
-      // const PeerSearchBar().marginOnly(right: 13),
+      const PeerSearchBar().marginOnly(right: 13), //這行是搜尋功能
       _createRefresh(
           index: PeerTabIndex.ab, loading: gFFI.abModel.currentAbLoading),
       _createRefresh(
@@ -562,7 +562,7 @@ class _PeerTabPageState extends State<PeerTabPage>
         offstage: model.currentTabCachedPeers.isEmpty,
         child: _createMultiSelection(),
       ),
-      // _createPeerViewTypeSwitch(context),
+      _createPeerViewTypeSwitch(context), //這行是檢視方式
       Offstage(
         offstage: model.currentTab == PeerTabIndex.recent.index,
         child: PeerSortDropdown(),
