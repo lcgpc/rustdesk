@@ -395,28 +395,24 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            children: [
-              if (!isOutgoingOnly)
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'assets/ktvlogo.png',
-                        height: 40, // 可依需求調整
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        translate("Your Desktop"),
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ],
+          if (!isOutgoingOnly)
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    'assets/ktvlogo.png',
+                    height: 80, // 圖片更大
                   ),
-                ), 
-            ],
-          ),
+                  SizedBox(height: 8),
+                  Text(
+                    translate("Your Desktop"),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                ],
+              ),
+            ),
           SizedBox(height: 10.0),
           if (!isOutgoingOnly)
             Text(

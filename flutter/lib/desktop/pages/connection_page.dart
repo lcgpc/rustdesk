@@ -313,6 +313,11 @@ class _ConnectionPageState extends State<ConnectionPage>
             Row(
               children: [
                 Flexible(child: _buildRemoteIDTextField(context)),
+                SizedBox(width: 8), // 讓圖片和輸入框有間距
+                Image.asset(
+                  'assets/ktvlogo.png',
+                  height: 32, // 可依需求調整
+                ),
               ],
             ).marginOnly(top: 22),
             SizedBox(height: 12),
