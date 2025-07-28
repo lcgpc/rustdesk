@@ -316,7 +316,7 @@ class _ConnectionPageState extends State<ConnectionPage>
                 SizedBox(width: 8), // 讓圖片和輸入框有間距
                 Image.asset(
                   'assets/ktvlogo.png',
-                  height: 32, // 可依需求調整
+                  height: 128, // 可依需求調整
                 ),
               ],
             ).marginOnly(top: 22),
