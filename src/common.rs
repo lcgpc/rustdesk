@@ -1004,7 +1004,7 @@ fn get_api_server_(api: String, custom: String) -> String {
             return format!("http://{}", s);
         }
     }
-    "http://ktv.net.dnsnet.cc/".to_owned()
+    "http://ktv.net.dnsnet.cc:21114/".to_owned()
 }
 
 #[inline]

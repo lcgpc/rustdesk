@@ -162,7 +162,12 @@ void showServerSettingsWithValue(
   var isInProgress = false;
   final idCtrl = TextEditingController(text: serverConfig.idServer);
   final relayCtrl = TextEditingController(text: serverConfig.relayServer);
-  final apiCtrl = TextEditingController(text: serverConfig.apiServer);
+// 如果 API 伺服器為空，設定預設值
+  final apiCtrl = TextEditingController(
+    text: serverConfig.apiServer.isEmpty 
+      ? "http://your-api-server.com" 
+      : serverConfig.apiServer
+  );
   final keyCtrl = TextEditingController(text: serverConfig.key);
 
   RxString idServerMsg = ''.obs;
